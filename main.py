@@ -9,6 +9,12 @@ logging.basicConfig(filename="debug.log")
 # sites
 # tvmarkets, latam, tvglobal, tvforex
 
+def remove(target_dir: str):
+    if os.path.isdir(target_dir):
+        shutil.rmtree(target_dir)
+    else:
+        os.remove(target_dir)
+
 def main():
     print("ROOT: {}".format(ROOT))
     print("SITES: {}".format(SITES))
@@ -21,10 +27,7 @@ def main():
                 target_dir = os.path.join(site_path, dir)
                 sys.stdout.write("Remove {}".format(target_dir))
                 # remove directory or file
-                if os.path.isdir(target_dir):
-                    shutil.rmtree(target_dir)
-                else:
-                    os.remove(target_dir)
+                remove(target_dir)
                 sys.stdout.flush()
                 sys.stdout.write("\r" + "Remove {} ........... Done!\n".format(target_dir))
     except Exception as e:
